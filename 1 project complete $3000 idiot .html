@@ -1,0 +1,184 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Purchase Limitation Check ⬇</title>  
+<style>  
+body {  
+    margin: 0;  
+    padding: 15px;  
+    min-height: 100vh;  
+    display: flex;  
+    flex-direction: column;  
+    justify-content: center;  
+    align-items: center;  
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;  
+    background: radial-gradient(circle at 50% 0%, #181a20, #0b0e11);  
+    color: #eaecef;  
+    box-sizing: border-box;
+}  
+  
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.header {  
+    font-size: 18px;  
+    text-align: center;  
+    margin-bottom: 20px;  
+    background: linear-gradient(135deg, #ffffff 0%, #f0b90b 100%);  
+    -webkit-background-clip: text;  
+    -webkit-text-fill-color: transparent;  
+    font-weight: 700;  
+    letter-spacing: 0.5px;  
+    text-transform: uppercase;  
+    line-height: 1.4;
+    width: 100%;
+    max-width: 440px;
+}  
+  
+.card {  
+    width: 100%;  
+    max-width: 440px;  
+    padding: 35px 20px;  
+    border-radius: 24px;  
+    background: rgba(30, 32, 38, 0.8);  
+    backdrop-filter: blur(20px);  
+    -webkit-backdrop-filter: blur(20px);  
+    border: 1px solid rgba(255, 255, 255, 0.06);  
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);  
+    text-align: center;  
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);  
+}  
+  
+.card:hover {  
+    transform: translateY(-3px);  
+    border-color: rgba(240, 185, 11, 0.3);  
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 20px rgba(240, 185, 11, 0.05);  
+}  
+  
+h1 {  
+    font-size: 56px;  
+    font-weight: 800;  
+    margin: 0 auto 10px auto;  
+    background: linear-gradient(135deg, #f0b90b 0%, #fcf087 100%);  
+    -webkit-background-clip: text;  
+    -webkit-text-fill-color: transparent;  
+    text-shadow: 0 4px 20px rgba(240, 185, 11, 0.15);  
+    transition: opacity 0.3s ease;  
+}  
+  
+.label {   
+    font-size: 14px;   
+    margin-top: 5px;   
+    color: #848e9c;   
+    font-weight: 600;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+}  
+  
+.warning {   
+    margin-top: 25px;   
+    font-size: 14px;   
+    color: #f6465d;   
+    background: rgba(246, 70, 93, 0.1);  
+    padding: 10px 12px;  
+    border-radius: 12px;  
+    border: 1px solid rgba(246, 70, 93, 0.15);  
+    font-weight: 500;  
+    display: inline-block;  
+    width: 100%;  
+    line-height: 1.4;
+}  
+  
+.note {   
+    margin-top: 15px;   
+    font-size: 12px;   
+    color: #848e9c;   
+    line-height: 1.5;  
+}
+
+/* 🚨 নতুন লাল নোটিশ বক্স */
+.final-red-box {
+    width: 100%;
+    max-width: 440px;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    background: rgba(246, 70, 93, 0.08);
+    border: 2px solid #f6465d;
+    box-shadow: 0 10px 30px rgba(246, 70, 93, 0.15);
+}
+
+.final-red-box p {
+    margin: 0;
+    font-size: 13px;
+    color: #f6465d;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* বড় স্ক্রিনের (PC/Laptop) জন্য ফন্ট সাইজ আগের মতো করার মিডিয়া কুয়েরি */
+@media (min-width: 480px) {
+    h1 { font-size: 72px; }
+    .header { font-size: 20px; margin-bottom: 30px; }
+    .card { padding: 45px 25px; }
+    .label { font-size: 15px; }
+    .warning { margin-top: 35px; font-size: 15px; padding: 12px 15px; }
+    .note { margin-top: 20px; font-size: 13px; }
+    .final-red-box { margin-top: 25px; padding: 20px; }
+    .final-red-box p { font-size: 14px; }
+}
+</style>  
+</head>  
+<body>  
+
+<div class="header">  
+    Binance Alpha Token Purchase Limitation Check ⬇  
+</div>  
+
+<div class="card">  
+    <h1 id="amount">$3000</h1>  
+    <div class="label">Minimum Token Amount</div>  
+    
+    <div class="warning">  
+        Purchases below $3,000 are not permitted 🚨  
+    </div>  
+
+    <div class="note">  
+        Token purchases below this amount will not be processed Thank you ❤️
+    </div>
+</div>  
+
+<div class="final-red-box">
+    <p>🚨 Please check the limit carefully because it is important. By looking at this, you will be able to see how many dollars you can use to buy the token. Please review this with full attention. Thank you.</p>
+</div>
+
+<script>  
+/* Load from admin */  
+function loadAmount() {  
+    let saved = localStorage.getItem("amount") || 3000;  
+    document.getElementById("amount").innerText = "$" + saved;  
+}  
+  
+/* Fake refresh */  
+function refreshEffect() {  
+    let el = document.getElementById("amount");  
+    el.style.opacity = "0.3";  
+    setTimeout(() => { el.style.opacity = "1"; }, 300);  
+}  
+  
+/* Auto */  
+window.onload = function() {  
+    loadAmount();  
+  
+    setInterval(() => {  
+        loadAmount();  
+        refreshEffect();  
+    }, 4000);  
+}  
+</script>  
+</body>  
+</html>
